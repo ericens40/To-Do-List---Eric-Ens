@@ -1,0 +1,67 @@
+﻿<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:helpers="clr-namespace:To_Do_List.Helpers"
+    
+    x:Class="To_Do_List.ViewModel.MainWindow" WindowStartupLocation="CenterScreen"
+    Title="To Do List - Eric Ens" Height="400" Width="800" Background="BlanchedAlmond" ResizeMode="NoResize"
+    xmlns:vm="clr-namespace:To_Do_List.ViewModel"
+    DataContext="{DynamicResource ViewModelMain}">
+    <Window.Resources>
+        <vm:ViewModelMain x:Key="ViewModelMain"/>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Cornsilk"/>
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="Cornsilk"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.3*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="List" Grid.RowSpan="2" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Orientation="Horizontal">
+                        <DataGrid x:Name="itemData" ItemsSource="{Binding ToDoList}" SelectedItem="{Binding SelectedItem}" SelectedIndex="{Binding SelectedIndex}" IsReadOnly="True" Background="BlanchedAlmond">
+                        </DataGrid>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Edit List" Grid.RowSpan="2" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0" Content="Remove Selected Task" Command="{Binding DeleteItemCommand}" Margin="5" Focusable="False" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="200"/>
+                <Button Grid.Row="1" Content="Edit Selected Task" Command="{Binding EditItemCommand}" Margin="5" Focusable="False" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="200"/>
+                <Button Grid.Row="2" Content="Add New Task" Command="{Binding AddItemCommand}" Margin="5" Focusable="False" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="200"/>
+                <TextBox Text="{Binding TextPropertyName, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="1" Padding="5" FontWeight="Bold" FontSize="18"/>
+                <TextBox Text="{Binding TextPropertyDescription, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" Grid.Column="1" Padding="5" FontWeight="Bold" FontSize="18"/>
+                <TextBox Text="{Binding TextPropertyDueDate, UpdateSourceTrigger=PropertyChanged}" Grid.Row="5" Grid.Column="1" Padding="5" FontWeight="Bold" FontSize="18"/>
+                <TextBox Text="{Binding TextPropertyPriority, UpdateSourceTrigger=PropertyChanged}" Grid.Row="6" Grid.Column="1" Padding="5" FontWeight="Bold" FontSize="18"/>
+                <TextBox Text="{Binding TextPropertyStatus, UpdateSourceTrigger=PropertyChanged}" Grid.Row="7" Grid.Column="1" Padding="5" FontWeight="Bold" FontSize="18"/>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>

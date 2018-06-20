@@ -5,6 +5,7 @@ using System;
 using System.Windows;
 using System.Windows.Media;
 using System.Data.SQLite;
+using System.IO;
 
 namespace To_Do_List.ViewModel
 {
@@ -12,11 +13,15 @@ namespace To_Do_List.ViewModel
     {
         public MainWindow()
         {
-           //CreateList(); //un comment and run once to utilize
+           CreateList(); //un comment and run once to utilize
         }
 
         private void CreateList()  // used to create a blank db with a set of test data
         {
+            if (File.Exists("To_Do_List.sqlite"))
+                return;
+
+
             SQLiteConnection.CreateFile("To_Do_List.sqlite");
 
             SQLiteConnection db_Connection = new SQLiteConnection("Data Source=To_Do_List.sqlite;Version=3;");
